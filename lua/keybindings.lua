@@ -4,67 +4,96 @@ require "helpers/keyboard"
 local wk = require("which-key")
 
 -- Global {{{
-wk.register({
-  ["K"] = {"<cmd>lua vim.lsp.buf.hover()<cr>", "Hover information"},
-  ["<leader>o"] = {"<cmd>Telescope find_files<cr>", "Find files"},
-  ["<leader>p"] = {"<cmd>Telescope oldfiles<cr>", "Previous files"},
-  ["<leader>f"] = {"<cmd>Telescope find_files<cr>", "Find in files"},
-  ["gd"] = {"<cmd>lua vim.lsp.buf.definition()<cr>", "Go to declaration" },
-  ["<leader>e"] = { "<cmd>Neotree focus<cr>", "Focus file explorer" },
-  ["<C-n>"] = { "<cmd>Neotree left toggle<cr>", "Toggle file explorer" }
+wk.add({
+  { 
+    "<C-n>",
+    "<cmd>Neotree left toggle<cr>",
+    desc = "Toggle file explorer",
+    mode = "n",
+  },
+  {
+    "<leader>e",
+    "<cmd>Neotree focus<cr>",
+    desc = "Focus file explorer",
+    mode = "n",
+  },
+  {
+    "<leader>f",
+    "<cmd>Telescope find_files<cr>",
+    desc = "Find in files",
+    mode = "n",
+  },
+  {
+    "<leader>o",
+    "<cmd>Telescope find_files<cr>",
+    desc = "Find files",
+    mode = "n",
+  },
+  {
+    "<leader>p",
+    "<cmd>Telescope oldfiles<cr>",
+    desc = "Previous files",
+    mode = "n",
+  },
+  {
+    "K",
+    "<cmd>lua vim.lsp.buf.hover()<cr>",
+    desc = "Hover information",
+    mode = "n",
+  },
+  {
+    "gd",
+    "<cmd>lua vim.lsp.buf.definition()<cr>",
+    desc = "Go to declaration",
+    mode = "n",
+  },
 })
+
 -- }}}
 
 -- Buffers {{{
-wk.register({
-  ["<Tab>"] = {"<cmd>bn<cr>", "Buffer next" },
-  ["<S-Tab>"] = {"<cmd>bp<cr>", "Buffer Previous" },
-  ["<leader>bd"] = {"<cmd>:Bdelete<cr>", "Buffer delete" },
+wk.add({
+  { "<S-Tab>", "<cmd>bp<cr>", desc = "Buffer Previous" },
+  { "<Tab>", "<cmd>bn<cr>", desc = "Buffer next" },
+  { "<leader>bd", "<cmd>:Bdelete<cr>", desc = "Buffer delete" },
 })
 -- }}}
 
 -- LSP {{{
-wk.register({
-  l = {
-    name = "LSP",
-      ["r"] = { "<cmd>lua vim.lsp.buf.rename()<CR>", "Rename symbol" },
-      ["a"] = { "<cmd>lua vim.lsp.buf.code_action()<CR>", "Code action" },
-  }
-}, { prefix = "<leader>" })
+wk.add({
+  { "<leader>l", group = "LSP" },
+  { "<leader>la", "<cmd>lua vim.lsp.buf.code_action()<CR>", desc = "Code action" },
+  { "<leader>lr", "<cmd>lua vim.lsp.buf.rename()<CR>", desc = "Rename symbol" },
+})
 -- }}}
 
 -- Conform {{{
-wk.register({
-  ["<leader>fm"] = {function() require("conform").format() end, "Format" },
+wk.add({
+  { "<leader>fm", function() require("conform").format() end, desc = "Format" },
 })
 -- }}}
 
 -- Telescope {{{
-wk.register({
-  t = {
-    name = "Telescope",
-    t = {"<cmd>Telescope<cr>", "Open Telescope"},
-    p = {"<cmd>Telescope oldfiles<cr>", "Oldfiles"},
-    s = {"<cmd>Telescope lsp_dynamic_workspace_symbols<cr>", "Workspace symbols"},
-    j = {"<cmd>Telescope jumplist<cr>", "Jumplist"},
-    b = {"<cmd>Telescope buffers<cr>", "Buffers"},
-    q = {"<cmd>Telescope quickfix<cr>", "Quickfix list"},
-    r = {"<cmd>Telescope resume<cr>", "Previous Telescope window"},
-    o = {"<cmd>Telescope find_files<CR>", "Find files"},
-    g = {
-      name = "Git",
-      b = {"<cmd>Telescope git_branches<cr>", "Git branches"},
-      o = { "<cmd>Telescope git_files<cr>", "Git files"},
-    }
-  }
-}, { prefix = "<leader>"})
+wk.add({
+  { "<leader>t", group = "Telescope" },
+  { "<leader>tb", "<cmd>Telescope buffers<cr>", desc = "Buffers" },
+  { "<leader>tg", group = "Git" },
+  { "<leader>tgb", "<cmd>Telescope git_branches<cr>", desc = "Git branches" },
+  { "<leader>tgo", "<cmd>Telescope git_files<cr>", desc = "Git files" },
+  { "<leader>tj", "<cmd>Telescope jumplist<cr>", desc = "Jumplist" },
+  { "<leader>to", "<cmd>Telescope find_files<CR>", desc = "Find files" },
+  { "<leader>tp", "<cmd>Telescope oldfiles<cr>", desc = "Oldfiles" },
+  { "<leader>tq", "<cmd>Telescope quickfix<cr>", desc = "Quickfix list" },
+  { "<leader>tr", "<cmd>Telescope resume<cr>", desc = "Previous Telescope window" },
+  { "<leader>ts", "<cmd>Telescope lsp_dynamic_workspace_symbols<cr>", desc = "Workspace symbols" },
+  { "<leader>tt", "<cmd>Telescope<cr>", desc = "Open Telescope" },
+})
 -- }}}
 
 -- Trouble {{{
-wk.register({
-  ["<leader>xx"] = {function() require("trouble").toggle() end, "Toggle trouble" },
-  ["<leader>xq"] = {function() require("trouble").toggle("quickfix") end, "Trouble guickfix" },
-  
+wk.add({
+  { "<leader>xx", "<cmd>Trouble diagnostics toggle<cr>", desc = "Trouble guickfix" },
+  -- { "<leader>xq", function() require("trouble").toggle("quickfix") end, desc = "Toggle trouble" },
   -- gr = {"<cmd>Trouble lsp_references<cr>", "Go to references"},
 })
 -- }}}

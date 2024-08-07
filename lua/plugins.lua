@@ -128,6 +128,16 @@ return {
   },
   -- }}}
 
+  -- Mini.nvim {{{
+    {
+      'echasnovski/mini.nvim',
+      version = false,
+      config = function ()
+        require("extensions.mini")
+      end
+    },
+    -- }}}
+
   -- Git Signs{{{
   {
     'lewis6991/gitsigns.nvim',
@@ -141,7 +151,6 @@ return {
   -- Trouble {{{
   {
     "folke/trouble.nvim",
-    lazy = true,
     dependencies = "kyazdani42/nvim-web-devicons",
     config = function()
       require "extensions.trouble"
@@ -216,6 +225,16 @@ return {
     lazy = false,
     config = function ()
       require "extensions.colorscheme.sonokai"
+    end
+  },
+  -- }}}
+
+  -- Theme: Onedark {{{
+  {
+    "navarasu/onedark.nvim",
+    lazy = false,
+    config = function ()
+      require "extensions.colorscheme.onedark"
     end
   },
   -- }}}
